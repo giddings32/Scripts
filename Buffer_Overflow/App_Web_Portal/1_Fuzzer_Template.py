@@ -1,8 +1,9 @@
 #!/usr/bin/python
 import socket
 
-# This Template Uses Username as a field. Change this on line 14
-# Change IP on lines 17,21,31
+# This Template Uses Username as a field. Change this on line 15
+# Change IP on lines 18,22,32
+# Replace Buffer Post request details with BurpSuite Post Request details
 
 try:
     print "\nSending evil buffer..."

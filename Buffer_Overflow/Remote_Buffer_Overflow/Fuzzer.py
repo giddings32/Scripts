@@ -7,7 +7,7 @@ from time import sleep
 
 size = 100
 
-while(size < 2000):
+while True:
         try:
                 print "\nSending evil buffer with %s bytes" % size
                 

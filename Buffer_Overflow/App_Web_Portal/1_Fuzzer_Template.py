@@ -1,6 +1,9 @@
 #!/usr/bin/python
 import socket
 
+# This Template Uses Username as a field. Change this on line 14
+# Change IP on lines 17,21,31
+
 try:
     print "\nSending evil buffer..."
 

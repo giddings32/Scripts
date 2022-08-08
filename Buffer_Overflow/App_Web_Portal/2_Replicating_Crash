@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-import socket
+import sys, socket
 
 # Change size on line 11 to bytes fuzzer crashed on.
 # Replace Buffer Post request details with Wireshark or BurpSuite Post Request details
@@ -38,3 +38,4 @@ try:
   
 except:
   print "\nCould not connect!"
+  sys.exit()

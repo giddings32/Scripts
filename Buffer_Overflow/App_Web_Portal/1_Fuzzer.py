@@ -4,8 +4,8 @@ import time
 import sys
 
 # This Template Uses Username as a field.
+# Replace Buffer Post request details with BurpSuite or Wireshark Post Request details lines 20-28
 # Change IP on lines 21,25,35
-# Replace Buffer Post request details with BurpSuite Post Request details lines 20-28
 
 size = 100
 

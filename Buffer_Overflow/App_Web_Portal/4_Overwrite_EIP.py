@@ -1,5 +1,5 @@
 #!/usr/bin/python2
-import socket
+import sys, socket
 
 # Change shellcode to Offset defined above on line 11
 # Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23

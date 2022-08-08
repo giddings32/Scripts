@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 import socket
 
 # Change size on line 11 to bytes fuzzer crashed on.

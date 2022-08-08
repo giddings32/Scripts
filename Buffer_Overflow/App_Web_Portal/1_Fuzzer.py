@@ -41,5 +41,5 @@ while(size < 2000):
     time.sleep(10)
     
   except:
-    print "\nCould not connect!"
+    print "\nFuzzing crashed at %s bytes" % str(len(buffer))
     sys.exit()

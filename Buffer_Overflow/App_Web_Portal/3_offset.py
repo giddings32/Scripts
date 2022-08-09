@@ -1,10 +1,6 @@
 #!/usr/bin/python2
 import sys, socket
 
-# Paste Pattern Created into line 11
-# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23
-# Changes IP Address on lines 16,20,30
-
 try:
   print "\nLocating Offset..."
 

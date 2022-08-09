@@ -2,9 +2,6 @@
 import sys, socket
 from time import sleep
 
-# Change IP and Port on line 17 to Target and Port Application is running on
-# Change TRUN on line 22 to Command you are testing
-
 size = 100
 
 while True:

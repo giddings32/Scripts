@@ -1,10 +1,6 @@
  #!/usr/bin/python2
  import sys, socket
 
-# Change IP and Port on line 13 to Target and Port Application is running on
-# Change TRUN on line 14 to Command you are testing
-# Paste Pattern Created into line 8
-
 offset = ""
         
 try:

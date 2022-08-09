@@ -1,9 +1,9 @@
 #!/usr/bin/python2
 import sys, socket
 
-# Change shellcode to Offset defined above on line 11
-# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23
-# Changes IP Address on lines 16,20,30
+# Change shellcode to Offset defined above on line 29
+# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 33-41
+# Changes IP Address on lines 34,38,48
 
 badchars = (
 "\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f\x10"

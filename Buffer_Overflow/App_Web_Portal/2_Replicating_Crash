@@ -8,7 +8,7 @@ import sys, socket
 try:
   print "\nSending evil buffer..."
  
-   size = 800
+  size = 800
   
   inputBuffer = "A" * size
   

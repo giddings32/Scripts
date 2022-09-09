@@ -1,3 +1,5 @@
+# Edit line 22 when searching for specific user and comment out line 21
+
 $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 
 $PDC = ($domainObj.PdcRoleOwner).Name
@@ -17,6 +19,7 @@ $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 $Searcher.SearchRoot = $objDomain
 
 $Searcher.filter="samAccountType=805306368"
+#$Searcher.filter="name=[USER_NAME]"
 
 $Searcher.FindAll()
 

@@ -1,4 +1,4 @@
-# Edit line 22 when searching for specific user and comment out line 21
+# Edit lines 21-24 and uncomment filter you will be using
 
 $domainObj = [System.DirectoryServices.ActiveDirectory.Domain]::GetCurrentDomain()
 
@@ -18,17 +18,18 @@ $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 
 $Searcher.SearchRoot = $objDomain
 
-$Searcher.filter="samAccountType=805306368"
-#$Searcher.filter="name=[USER_NAME]"
+$group = "Domain Admins"
+#$Searcher.filter="samAccountType=805306368"
+$Searcher.filter="name=Jeff_Admin"
+#$Searcher.filter="(&(objectClass=Group)(name=" + $group + "))"
 
 $Searcher.FindAll()
-
 Foreach($obj in $Result)
 {
     Foreach($prop in $obj.Properties)
     {
         $prop
     }
-    
+
     Write-Host "------------------------"
 }

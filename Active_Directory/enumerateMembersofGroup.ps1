@@ -8,8 +8,8 @@ $Searcher = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$SearchS
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 $Searcher.SearchRoot = $objDomain
 
-# change "Secret_Group" to correct group name
-$Searcher.filter="(name=Secret_Group)"
+# change "Domain Admins" to correct group name
+$Searcher.filter="(name=Domain Admins)"
 $Result = $Searcher.FindAll()
 Foreach($obj in $Result)
 {

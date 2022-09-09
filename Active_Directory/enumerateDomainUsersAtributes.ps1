@@ -8,13 +8,16 @@ $Searcher = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$SearchS
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 $Searcher.SearchRoot = $objDomain
 $Searcher.filter="samAccountType=805306368"
+
+# To search for specific user, uncomment below
+# $Searcher.filter="name=[user_name]"
+
 $Searcher.FindAll()
 Foreach($obj in $Result)
 {
-    Foreach($prop in $obj.Properties)
-    {
-        $prop
-    }
-
-    Write-Host "------------------------"
+ Foreach($prop in $obj.Properties)
+ {
+ $prop
+ }
+ Write-Host "------------------------"
 }

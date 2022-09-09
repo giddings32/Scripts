@@ -7,9 +7,7 @@ $SearchString += $DistinguishedName
 $Searcher = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$SearchString)
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 $Searcher.SearchRoot = $objDomain
-#$Searcher.filter="samAccountType=805306368"
-$Searcher.filter="name=Jeff_Admin"
-#$Searcher.filter="(&(objectClass=Group)(name=" + $group + "))"
+$Searcher.filter="samAccountType=805306368"
 $Searcher.FindAll()
 Foreach($obj in $Result)
 {

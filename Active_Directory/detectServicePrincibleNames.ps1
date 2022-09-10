@@ -7,7 +7,10 @@ $SearchString += $DistinguishedName
 $Searcher = New-Object System.DirectoryServices.DirectorySearcher([ADSI]$SearchString)
 $objDomain = New-Object System.DirectoryServices.DirectoryEntry
 $Searcher.SearchRoot = $objDomain
-$Searcher.filter="serviceprincipalname=*http*" # change name as needed
+
+# change name as needed
+
+$Searcher.filter="serviceprincipalname=*http*" 
 $Result = $Searcher.FindAll()
 Foreach($obj in $Result)
 {

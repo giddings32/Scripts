@@ -18,4 +18,17 @@ Foreach($obj in $Result)
  {
  $prop
  }
+
+
+$SPN_initial = $prop.serviceprincipalname
+$SPN = $SPN_initial.split("/")[1].split(":")[0]
+Write-Host ""
+Write-Host "Sam Account Name : [+]" $prop.samaccountname n
+Write-Host "Service Principal Name : [+]" $SPN n
+ 
+If ($SPN -like "*.com") {
+nslookup $SPN
+}
+
+Write-Host "--------------------------------------------------------"
 }

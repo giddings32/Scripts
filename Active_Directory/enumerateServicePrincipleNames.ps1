@@ -10,7 +10,7 @@ $Searcher.SearchRoot = $objDomain
 
 # change name as needed
 
-$Searcher.filter="serviceprincipalname=*http*" 
+$Searcher.filter="serviceprincipalname=*" 
 $Result = $Searcher.FindAll()
 Foreach($obj in $Result)
 {

